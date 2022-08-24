@@ -20,9 +20,22 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
   res.render('show', { restaurant: restaurantOne })
 })
 
+app.get('/search', (req, res) => {
+  console.log(req.query)
+  const keyword = req.query.keyword
+  const restaurant = restaurantList.results.filter(restaurant => {
+    if (restaurant.name.toLowerCase().includes(keyword.toLowerCase())) {
+      return restaurant
+    } else if (restaurant.category.toLowerCase().includes(keyword.toLowerCase())) {
+      return restaurant
+    }
+  })
+  res.render('index', { restaurant: restaurant, keyword: keyword })
+})
+
 app.listen(port, () => {
   console.log(`the Express run on http://localhost:${port}`)
 })
 
 
-const none
+
